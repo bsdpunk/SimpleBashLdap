@@ -21,7 +21,7 @@
 OLD=$IFS
 
 PASSWORD="" #yourPassword
-HOST="" #ldapserver.exmaple.com
+HOST="" #ldapserver.example.com
 PORT="" #389
 BASE="" #dc=example,dc=com
 BDN="" #cn=directory manager
