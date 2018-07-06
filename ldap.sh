@@ -25,6 +25,7 @@ HOST="" #ldapserver.example.com
 PORT="" #389
 BASE="" #dc=example,dc=com
 BDN="" #cn=directory manager
+MAGICNUMBER="" #Your magic number for generating new uidNumbers, DNA (Dynamic Number Assignment Plugin)
 
 function ldifPosixAdd() {
 
@@ -38,7 +39,7 @@ echo "objectClass: posixAccount"
 echo "-"
 
 echo "add: uidNumber"
-echo "uidNumber: 12345678"
+echo "uidNumber: $MAGICNUMBER"
 echo "-"
 
 echo "add: gidNumber"
