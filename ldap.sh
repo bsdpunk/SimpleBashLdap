@@ -5,7 +5,7 @@
 #
 #         USAGE: source ldap.sh; addposix uid name group; getldap uid; csv2posix userList 
 #
-#   DESCRIPTION: Simply the ldapsearch and ldapmodify commands
+#   DESCRIPTION: Simplify the ldapsearch and ldapmodify commands
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -14,7 +14,7 @@
 #        AUTHOR: Dusty Carver,
 #  ORGANIZATION:
 #       CREATED: 05/ 2/2018 10:24
-#      REVISION:  .3
+#      REVISION:  .4
 #===============================================================================
 
 
