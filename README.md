@@ -4,12 +4,14 @@ Ldapsearch and modify commands, broken down for ease of use
 ## To Use
 Change The variables on lines 23 to 28 to match your ldap situation:
 
-PASSWORD
-HOST
-PORT
-BASE
-BDN
-MAGICNUMBER
+```
+PASSWORD="" #yourPassword
+HOST="" #ldapserver.example.com
+PORT="" #389
+BASE="" #dc=example,dc=com
+BDN="" #cn=directory manager
+MAGICNUMBER="" #Your magic number for generating new uidNumbers, DNA (Dynamic Number Assignment Plugin)
+```
 
 Source file
 ```
