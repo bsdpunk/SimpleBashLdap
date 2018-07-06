@@ -16,11 +16,13 @@ addposix ag03333 "Dusty Carver" 90025
 Well that's cool but it barely saves me any time. Well what if you had to add a whole list of users to give POSIX too?
 
 Good news, you can submit your updates as a csv, for example, I had this PDF with $var user on it, I just made a csv with:
+
 uid,Full Name,gidNumber
 IE:
+```
 c001222,"Sally Salazer",10692
 c001444,"Isaiah Gatsby",10692
-
+```
 csv2posix userList.csv
 
 Oh but wait sir, good sir, kind sir... What about verification of their name?
