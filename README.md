@@ -2,7 +2,14 @@
 Ldapsearch and modify commands, broken down for ease of use
 # Look at Caveats at the bottom
 ## To Use
-Change The variables on lines 23 to 28 to match your ldap situation.
+Change The variables on lines 23 to 28 to match your ldap situation:
+
+PASSWORD
+HOST
+PORT
+BASE
+BDN
+MAGICNUMBER
 
 Source file
 ```
