@@ -31,8 +31,9 @@ Oh but wait sir, good sir, kind sir... What about verification of their name?
 Well that's built in, if you have a big csv with uid,Full Name,gidNumber, guess what happens if the cn, IE normal name doesn't match? Well it throws you a prompt:
 Current name ( ${NAME_FROM_CSV} ) is not in the Ldif information, Current Name is $NAME_FROM_RHDS  continue Y\\N:"
 
+```
 Current name ( "Jessica I Johnson" ) is not in the Ldif information, Current Name is cn: Jessica L. Johnson continue Y\N:
-
+```
 
 ## Most Common Uses
 addposix uid name group; getldap uid; csv2posix userList; 
