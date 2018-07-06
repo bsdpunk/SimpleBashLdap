@@ -58,6 +58,15 @@ homeDirectory: /home/insertedThroughScript
 add: loginShell
 loginShell: /bin/bash
 
-Please check to see if this is the same ldif
+Please check to see if this is the same ldif, you would use for adding users to groups:
+dn:'inserted by script'
 
+changetype: modify
+add: uniqueMember
+uniqueMember:'insertedByScript'
 
+## To Check What the LDIF file will look like With Inserts
+```
+Dustins-MacBook-Air:SimpleBashLdap dusty$ ldifPosixAdd uid "Real Name" gid
+Dustins-MacBook-Air:SimpleBashLdap dusty$ ldifAddUserToGroup uid gidNumber
+```
