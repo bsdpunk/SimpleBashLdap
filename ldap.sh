@@ -27,6 +27,43 @@ BASE="" #dc=example,dc=com
 BDN="" #cn=directory manager
 MAGICNUMBER="" #Your magic number for generating new uidNumbers, DNA (Dynamic Number Assignment Plugin)
 
+function dsrv() {
+
+FQDN=$1
+
+ldapsearch -v -x -H $HIST -D  $BDN -b $BASE -w $PASSWORD -s sub "nisNetgroupTriple=\($FQDN,-,\)" filter dn nisNetgroupTriple | grep cn= | sed 's/.*cn=//' | sed 's/,.*//'
+
+}
+
+ 
+
+function forGroup() { for i in $(cat $1);do dsrv $i ; dsrv $i ; done 2> /dev/null | sort | uniq ; }
+
+
+
+function getGroup {
+ldapsearch -D "$BDN" -w $PASSWORD -p $PORT -h $HOST -b "ou=groups,$BASE" -s sub "gidNumber=$1"
+}
+
+function getGroupId {
+ldapsearch -D "$BDN" -w $PASSWORD -p $PORT -h $HOST -b $BASE -s sub "cn=$1"
+}
+
+function getNetGroupId {
+ldapsearch -D "$BDN" -w $PASSWORD -p $PORT -h $HOST -b "ou=netgroup,$BASE" -s sub "cn=$1"
+}
+
+function isNetGroupName {
+
+if getNetGroupId $1 | grep -q "nisnetgroup"; then
+    getNetGroupId $1
+else
+    return 0
+fi
+
+}
+
+
 function ldifPosixAdd() {
 
 USER=$1
@@ -54,6 +91,19 @@ echo "add: loginShell"
 echo "loginShell: /bin/bash"
 
 }
+
+function ldifAddUserToGroup() {
+
+DN=$(getGroup "${2}" | grep "dn: cn")
+USERID=$(getldap "${1}" | grep "dn: uid" | sed 's/^dn: //' )
+
+echo "$DN"
+echo "changetype: modify"
+echo "add: uniqueMember"
+echo "uniqueMember: $USERID"
+
+}
+
 
 
 function checkPosix {
@@ -129,6 +179,36 @@ else
 fi
 
 }
+function addtoldapgroup() {
+        
+local OPTIND
+while getopts ":h" opt ; do
+    case "$opt" in
+        h )
+            echo "addtoldapgroup [-h] uid gid" 
+            return 0
+            ;;
+        * )
+            echo "invalid flag";
+            ;;
+    esac
+done
+int='^[0-9]+$'
+if ! [[ $2 =~ $int ]] ;
+then
+    echo "Group ID must be integer, EX: 90025"
+    return
+fi
+if ! [[ -z $3 ]] ;
+then
+    echo "addtoldapgroup only takes 2 arguements, uid gid"
+    echo "Ex: addposix ah03999 \"Dusty Carver\" 90025"
+    return
+fi
+
+        ldapmodify -x -D $BDN -w $PASSWORD -H ldap://${HOST} -f <( ldifAddUserToGroup "${1}" "${2}" )
+}
+
 
 function csv2posix()
 {
